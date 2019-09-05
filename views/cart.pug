@@ -1,0 +1,30 @@
+extend layout
+block content
+  - cart_stationaries = cart_stationaries || {};
+  - stationaries = stationaries || [];
+    h1 Cart
+    form(method="post" action="/order" class="form-inline")
+      div(class="list-group container-fluid")
+        - let total = 0;
+        each k in Object.keys(cart_stationaries)
+          - const obj = stationaries[k];
+          - const subtotal = Math.round(obj.unit_price * cart_stationaries[k] * 100)/100;
+          - total += subtotal
+            li(class="list-group-item")
+              div(class="row cart-row")
+                div(class="col")
+                  h3(class="card-title")= obj.name
+                div(class="col d-flex align-items-center justify-content-around")
+                  span= `$${obj.unit_price} x`
+                  input(type="number" data-id=obj.id name=`${obj.name}-quantity` class="form-control text-right update-stat" value=cart_stationaries[k] maxlength="3" min="1")
+                  span= `$${subtotal}`
+                  a(href=`/stationaries/${obj.id}` class="delete-stat float-right") Remove
+        if Object.keys(cart_stationaries).length > 0
+          li(class="list-group-item")
+            span(class="float-right")=`Total: $${total}`
+      if Object.keys(cart_stationaries).length > 0
+        div(class="btn-group mt-4" role="group")
+          button(type="submit" class="btn btn-primary") ORDER
+      else
+        div No stationary in cart
+      end

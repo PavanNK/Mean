@@ -1,0 +1,64 @@
+extend layout
+block content
+  h2= `Hello ${user.name} !`
+  if !!transactions && transactions.length > 0
+    table(class="table")
+      thead
+        tr
+          th Transaction ID
+          th User ID
+          th Status
+          th Total
+          th Last updated
+          th Actions
+      tbody
+        each val in transactions
+          tr
+            td= val.id
+            td= val.users_id
+            td= val.status
+            td= val.total
+            td= val.updated_at
+            td
+              button(type="button" class="btn btn-secondary" data-toggle="modal" data-target=`#details-${val.id}`) View/Edit
+              if user.id !== 'admin' && val.status === 'submitted'
+                a(data-id=val.id type="button" class="delete-transaction btn btn-danger ml-3")
+                  i(class="fas fa-trash-alt")
+              if user.id === 'admin' && val.status === 'submitted'
+                button(data-id=val.id type="button" class="approve-transaction btn btn-primary ml-3") Approve
+          div(class="modal fade" id=`details-${val.id}` tabindex="-1" role="dialog" aria-hidden="true")
+            div(class="modal-dialog" role="document")
+              div(class="modal-content")
+                div(class="modal-header bg-warning")
+                  h5(class="modal-title")=`Transaction ${val.id} Details`
+                div(class="modal-body")
+                  form(method="post")
+                    each item in val.transaction_items
+                      div(class="card mb-2")
+                        div(class="card-body")
+                          div(class="form-group")
+                            label
+                              b Name
+                            p(class="read-only-field")=item.name
+                          div(class="form-group")
+                            label
+                              b Unit Price
+                            p(class="read-only-field")=item.unit_price
+                          div(class="form-group")
+                            label(for=`${val.id}-${item.id}-quantity`)
+                              b Quantity
+                            if user.id !== 'admin' && val.status === 'submitted'
+                              input(type="number" min=1 name=`${val.id}-${item.id}-quantity` class=`form-control ${val.id}-quantity` data-id=item.id id=`${val.id}-${item.id}-quantity` value=item.quantity)
+                            else if val.status === 'approved'
+                              p(class="read-only-field")=item.quantity
+                          div(class="form-group")
+                            label
+                              b Subtotal
+                            p(class="read-only-field")=item.subtotal
+                div(class="modal-footer")
+                  if user.id !== 'admin' && val.status === 'submitted'
+                    button(data-id=val.id type="button" class="update-transaction btn btn-primary") Submit
+  else
+    p No previous transactions made
+
+

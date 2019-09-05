@@ -1,0 +1,26 @@
+nav {
+    font-family: 'Josefin Sans', sans-serif;
+}
+.nav-link {
+    font-size: 20px;
+}
+
+body {
+    font-family: Calibri, sans-serif;
+    font-size: 18px;
+}
+
+.cart-row {
+    padding: 20px;
+}
+
+.update-stat[type="number"] {
+    width: 100px;
+}
+
+.read-only-field {
+    border-bottom: 1px dotted black;
+}
+.fa-trash-alt, .fa-thumbs-up {
+    color: white;
+}

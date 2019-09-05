@@ -1,0 +1,29 @@
+extend layout
+block content
+  h1 Shop
+  form(method="post" action="/stationaries")
+    div(class="form-group")
+      label(for="stationary")
+        strong Select your stationary
+      div(class="input-group" )
+        select(class="custom-select" id="stationary-dropdown")
+          option(value={} selected) Choose ...
+          - stationaries = stationaries || []
+          each s in stationaries
+            option(value=s)= s.name
+        input(type="hidden" name="item_id" id="item_id")
+    div(class="form-group")
+      label
+        strong Product Name
+      p(id='s_name')= !!selected ? selected.name : 'nil'
+    div(class="form-group")
+      label
+        strong Unit Price
+      p(id='s_unit_price')= 'nil'
+    div(class="form-group")
+      label
+        strong Quantity
+      div(class="input-group")
+        input(type="number" name="quantity" class="form-control" id="s_quantity" placeholder="Quantity" min="1")/
+    div(class="btn-group float-right" role="group")
+      button(type="submit" class="btn btn-outline-primary") ADD TO CART

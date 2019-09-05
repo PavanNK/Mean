@@ -1,0 +1,37 @@
+extend layout
+block content
+  - if (msg !== undefined)
+    div(class="alert alert-danger")= msg
+  div(class="container-fluid mt-2")
+    div(class="card col-lg-8 mx-auto p-0")
+      ul(class="card-header text-center") E-Stationary Mart Login
+      div(class="container-fluid p-4")
+        form(method="post" action="/process_login")
+          div(class="form-group")
+            label(for="username") Username
+            input(type="text" name="username" class="form-control" id="username" placeholder="Username")/
+          div(class="form-group")
+            label(for="password") Password
+            input(type="password" name="password" class="form-control" id="password" placeholder="Password")/
+          button(type="submit" class="btn btn-primary") LOGIN
+          button(type="button" class="btn btn-secondary ml-3" data-toggle="modal" data-target="#modal-signup") SIGN UP
+  div(class="modal fade" id="modal-signup" tabindex="-1" role="dialog" aria-hidden="true")
+    div(class="modal-dialog" role="document")
+      div(class="modal-content")
+        div(class="modal-header")
+          h5(class="modal-title") Sign Up
+        div(class="modal-body")
+          form(method="post" action="/users")
+            div(class="form-group")
+              label(for="username-signup") Username
+              input(type="text" name="username" class="form-control" id="username-signup" placeholder="Username")/
+            div(class="form-group")
+              label(for="password-signup") Password
+              input(type="password" name="password" class="form-control" id="password-signup" placeholder="Password")/
+            div(class="form-group")
+              label(for="confirm-password-signup") Confirm Password
+              input(type="password" name="confirm_password" class="form-control" id="confirm-password-signup" placeholder="Password")/
+            div(class="form-group")
+              label(for="email-signup") Email
+              input(type="email" name="email" class="form-control" id="email-signup" placeholder="Password")/
+            button(type="submit" class="btn btn-primary") SUBMIT
