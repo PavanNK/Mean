@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <h1 class="text-center">All Employees</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees"
+          [class.selected]="employee === selectedEmployee">
+        <td>{{employee.id}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.age}}</td>
+        <td>{{employee.email}}</td>
+        <td><button class="btn btn-primary" routerLink="/employees/{{employee.id}}">Update</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
